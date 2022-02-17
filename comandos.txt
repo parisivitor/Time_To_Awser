@@ -1,0 +1,91 @@
+Startando projeto na maquina
+vagrant up      -> subir maquina virtual
+vagrant ssh     -> entrar na marquina virtual
+cd /vagrant/    -> faz a comuni maquina virtual->pasta windows
+cd time_to_answer       -> entrar na pasta do projeto
+__________________________________________________________
+Iniciando aplicacao
+rails new time_to_answer -> cria aplicacao nova rails
+rails new -T app        -> cria aplicacao nova sem a pasta de test
+rails g controller welcome index  -> cria app/controler e app/views/welcome/index
+rails g controller a -> criar crontroller
+rails d controller a -> destroy controller
+
+aplicacao/config/routes -> faz as configuracoes de rotas(ex: /inicio)
+______________________________________________________________
+spring status -> comando que mostra o status do spring
+spring stop -> para o spring q roda a aplicacao em segundo plano e tem cash dentro nela
+localhost:3000/rails/info/routes -> todas as rotas possiveis da aplicacao
+____________________________________________________________
+autenticacao de login
+/app/controller/welcome_controler -> http_basic_authenticate_with name: "vitor", password: "123" -> login pelo browser simples
+
+deviser -> /Gemfile -> gem 'devise' -> fazer login avançado pela gem devise
+    bundle install
+    rails g devise:install
+    /config/env/development.rb -> deviser config
+    rails g divese MODEL   -> "MODEL" pode ser qualquer nome
+    /config/initi/devise ->  scooped_views = true -> config para quando se tem mais de 1 MODEL
+    rails g divese:views MODEL -> gera a view do MODEL digitado
+    rails db:migrate -> para atualiza o banco com as telas de login
+    /app/views/MODEL/sessions/new.html.erb -> tela de login
+    /app/models/MODEL.rb -> seleciona quais extensoes do devise que vai funcionar
+    apos ter feito as configuraçoes de layout
+        /app/controller/admins_backoffice_controller.rb -> adiciona a linha "before_action :authenticate_admin!" para que so entre se tiver logado
+Controle de login
+    /app/views/site/welcome/index.html.erb -> comandos (user_signed_in?, current_user.email )
+    /app/view/admins_backoffice/welcome/index -> link_to -> fazer logoff
+    /config/initializers/devise.rb -> config.sing_out_all_scopes = true -> desloga todo mundo junto
+__________________________________________________________
+i18n -> Gemfile -> gem 'rails-i18n', '~> 5.1' -> adiciona a gem i18n
+    bundle install -> sempre que adicionar uma nova gem fazer o bundle instal para atulizar no projeto
+    criar arquivo /config/initia/locale.rb  -> config inicial do I18n
+    criar arquivo /config/initia/locales/devise.pt-BR.yml
+    criar arquivo /config/initia/locales/models.pt-BR.yml
+__________________________________________________________
+Layout base diferentes
+    /app/views/layout/admins_backoffice.html.erb -> cria o arquivo para ter uma layout diferente do padrao
+    rails g controller admins_backoffice -> gerar um controller para o adm e prifile
+    /app/controller/admins_backoffice/welcome_controler.rb -> vai herda do AdminnsBackoficceConntroller
+    /app/controller/admins_backoffice_controller.rb -> adiciona a linha  "layout 'admins_backoffice' "  para fazer a renderização do layout certo
+    /app/controller/admins_backoffice_controller.rb -> adiciona a linha "before_action :authenticate_admin!" para que so entre se tiver logado
+__________________________________________________________
+Exemplo meta programação
+class User
+    def initialize(name)
+        User.create_method(name)
+    end
+    def self.create_method(name)
+        define_method :"speak_#{name.downcase}!" do
+            "Hello, everyone I`m #{name}!"
+        end
+    end
+end
+__________________________________________________________
+Task.rake
+    Adigionar a gem 'tty-spinner'-> bundle install
+    rails g task dev setup -> cria /lib/taks/dev.rake
+    /lib/taks/dev.rake -> fazer a criacao de usuarios/admin padrao por task
+__________________________________________________________
+Adicionando templates
+    /public/templates -> color as pastas dos templates do curso rails 5x (bootstrap, gentella, stratbootstrapoo-sb-admin-2)
+__________________________________________________________
+Instalar yarn
+    sudo apt-get install npm
+    sudo npm innstall --global yarn
+    yarn init
+__________________________________________________________
+Portando templates na aplicação ( aula 139 )
+    Desabilitar a gem turbolinks > /app/assets/javascript/aplication.js remove o turbolinks
+    /app/views/layouts/admins_backoffice.html.erb ->  remover o turbolinks
+    copia a pagina blank do template
+    /app/assets/stylesheets/aplication.css -> remover o requireTree
+    /app/assets/javascripts/aplication.js -> remover o requireTree
+__________________________________________________________
+Banco de dados
+    rails g model subject description:string
+    rails g model question subject:references description:text
+    rails g model answer question:references description:text correct:boolean
+    /db/migrate -> mexer em outras configuraçoes
+    rails db:migrate -> faz a migracao para o banco de dados
+    config de has_many  é nas models
