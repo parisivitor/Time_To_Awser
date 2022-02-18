@@ -9,9 +9,9 @@
   <table class="table table-striped table-bordered table-hover">
       <thead>
           <tr>
-              <th>#</th>
-              <th>Descrição</th>
-              <th>Assunto</th>
+              <th><%= translate_attribute(@questions, :id) %></th>
+              <th><%=translate_attribute(@questions, :description) %></th>
+              <th><%= translate_attribute(@questions, :subject_id) %></th>
               <th>
                 <%= link_to new_admins_backoffice_question_path, class:"btn btn-success btn-circle" do %>
                   <i class="fa fa-plus"></i>
