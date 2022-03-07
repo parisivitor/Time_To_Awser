@@ -1,0 +1,10 @@
+'pt-BR':
+  placeholder:
+    email: Email do %{model}
+    password: Senha
+    password_confirmation: Confirmação da Senha
+    description: Descrição da
+  btn:
+    save: Salvar
+  txt:
+    data: Dados %{model}
