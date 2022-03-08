@@ -3,5 +3,5 @@ class Subject < ApplicationRecord
 
   validates :description, presence: true, allow_blank: false
 
-  paginates_per 5
+  paginates_per 15
 end
