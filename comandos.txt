@@ -89,3 +89,6 @@ Banco de dados
     /db/migrate -> mexer em outras configuraçoes
     rails db:migrate -> faz a migracao para o banco de dados
     config de has_many  é nas models
+__________________________________________________________
+Adicionar dados no banco de dados
+    4 maneiras diferentes -> aula 176
