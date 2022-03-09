@@ -6,4 +6,20 @@ class Question < ApplicationRecord
   paginates_per 15
 
   validates :description, presence: true, allow_blank: false
+
+  # Por classes
+  # def self.search(term, page)
+  #   includes(:answers).where("lower(description) LIKE ?", "%#{term.downcase}%").page(page)
+  # end
+
+  # def self.ordenation_desc(page)
+  #   includes(:answers).order('created_at desc').page(page)
+  # end
+
+  # Por scopes
+  scope :_search_, -> (term, page) {includes(:answers).where("lower(description) LIKE ?", "%#{term.downcase}%").page(page) }
+  scope :ordenation_desc, -> (page) {includes(:answers).order('created_at desc').page(page)}
+  scope :paginate, -> { page(page)}
+
+
 end
