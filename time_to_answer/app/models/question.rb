@@ -12,6 +12,8 @@ class Question < ApplicationRecord
   #   includes(:answers).where("lower(description) LIKE ?", "%#{term.downcase}%").page(page)
   # end
 
+  after_create :set_statistic
+
   # def self.ordenation_desc(page)
   #   includes(:answers).order('created_at desc').page(page)
   # end
@@ -36,6 +38,13 @@ class Question < ApplicationRecord
   }
 
   scope :paginate, -> { page(page)}
+
+
+
+  private
+  def set_statistic
+    AdminStatistic.set_event(AdminStatistic::EVENTS[:total_questions])
+  end
 
 
 end

@@ -6,10 +6,10 @@ namespace :dev do
   desc "Configura o ambiente de desenvolvimento"
   task setup: :environment do
     if Rails.env.development?
-      show_spinner("Apagando BD...") { %x(rails db:drop:_unsafe) }
-      show_spinner("Criando BD...") { %x(rails db:create) }
-      show_spinner("Migrando BD...") { %x(rails db:migrate) }
-      show_spinner("Cadastrando o administrador padrão...") { %x(rails dev:add_default_admin) }
+      # show_spinner("Apagando BD...") { %x(rails db:drop:_unsafe) }
+      # show_spinner("Criando BD...") { %x(rails db:create) }
+      # show_spinner("Migrando BD...") { %x(rails db:migrate) }
+      # show_spinner("Cadastrando o administrador padrão...") { %x(rails dev:add_default_admin) }
       show_spinner("Cadastrando administradores extras...") { %x(rails dev:add_extra_admins) }
       show_spinner("Cadastrando o usuário padrão...") { %x(rails dev:add_default_user) }
       show_spinner("Cadastrando assuntos padrões...") { %x(rails dev:add_subjects) }
@@ -46,6 +46,17 @@ namespace :dev do
       password: DEFAULT_PASSWORD,
       password_confirmation: DEFAULT_PASSWORD
     )
+  end
+
+  desc "Adiciona users extras"
+  task add_extra_users: :environment do
+    10.times do |i|
+      User.create!(
+        email: Faker::Internet.email,
+        password: DEFAULT_PASSWORD,
+        password_confirmation: DEFAULT_PASSWORD
+      )
+    end
   end
 
   desc "Adiciona assuntos padrões"
