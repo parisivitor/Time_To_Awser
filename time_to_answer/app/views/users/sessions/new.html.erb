@@ -13,14 +13,15 @@
           </div>
 
           <% if devise_mapping.rememberable? -%>
-            <div class="field text-left mt-2">
+            <div class="field text-right">
               <%= f.check_box :remember_me %>
               <%= f.label :remember_me %>
             </div>
           <% end -%>
 
           <div>
-            <%= f.submit "Entrar", class: "btn btn-default submit", style: "float: none; margin-left: 0px; width: 50%;"%>
+            <%= f.submit "Entrar", class: "btn btn-default submit", style: "float: none; margin-left: 0px; width: 40%;"%>
+            <%= link_to 'Esqueceu sua senha?', new_user_password_path, class: "reset_pass" %>
           </div>
 
 

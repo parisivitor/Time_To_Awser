@@ -11,7 +11,7 @@ class User < ApplicationRecord
   after_create :set_statistic
 
 
-  validates :first_name, presence: true, length: {minimum: 2}, on: :update
+  validates :first_name, presence: true, length: {minimum: 2}, on: :update, unless: :reset_password_token_presente?
 
   def full_name
     # "#{self.first_name} #{self.last_name}"
@@ -21,5 +21,9 @@ class User < ApplicationRecord
   private
   def set_statistic
     AdminStatistic.set_event(AdminStatistic::EVENTS[:total_users])
+  end
+
+  def reset_password_token_presente?
+    !!$global_params[:user][:reset_password_token]
   end
 end
